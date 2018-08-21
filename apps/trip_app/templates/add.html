@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add a Trip</title>
+    <style>
+
+        .container{
+            width:980px;
+            height: 900px;
+            border : 1px solid black;
+            margin: auto;
+        }
+
+        .top{
+
+            width: 980px;
+            height:100px;
+            display: block;
+            border : 1px solid black;
+            vertical-align: top;
+        }
+
+        h2{
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 20px;
+        }
+        .logout{
+            display: inline-block;
+            font-size: 20px;
+            margin-left: 600px;
+            margin-top: 20px;
+            vertical-align: top;
+        }
+        .back{
+            margin-right:20px;
+        }
+
+        .post{
+
+            padding: 10px;
+        }
+        .error{
+            margin-left: 140px;
+            color:red;
+            list-style-type: none;
+            font-size: 13px;
+        }
+
+    </style>
+</head>
+<body>
+        <div class = "container">
+
+            <div class = "top">
+                <h2>Add a Job</h2>
+
+                <div class = "logout">
+                    <a class = "back" href = "/home">Back</a>
+                    <a href = "/logout">Logout</a>
+                </div>
+
+            </div>
+
+            <div class= "post">
+                <form action="/process" method = "post">
+                    {%csrf_token%}
+
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags  == "destination"%}
+                        <li class="error">
+                        {{ message }}
+                        </li>
+                        {%endif%}
+                        {%endfor%}{%endif%}
+                        <label for="destination" >Destination : </label>
+                        <input type="text" name = "destination" id = "destination" size="30px">
+
+                        <br><br><br><br>
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags  == "description"%}
+                        <li class="error">
+                        {{ message }}
+                        </li>
+                        {%endif%}
+                        {%endfor%}{%endif%}
+                        <label for="description"> Description : </label>
+                        <input type="text" name = "description" id = "description" size="30px">
+                        <br><br><br><br>
+
+                        {% if messages %}
+                        {% for message in messages %}
+                        {% if message.extra_tags  == "start_date"%}
+                        <li class="error">
+                        {{ message }}
+                        </li>
+                        {%endif%}
+                        {%endfor%}{%endif%}
+                        <label for="start_date">Travel Date From : </label>
+                        <input type="date" name="start_date" id="start_date" size = "30px">
+                        <br><br><br><br>
+
+                        <label for="end_date">Travel Date To : </label>
+                        <input type="date" name="end_date" id="end_date" size = "30px">
+                        <br><br><br><br>
+
+                        <input type="submit" value = "Submit">
+
+                </form>
+            </div>
+
+        </div>
+
+</body>
+</html>

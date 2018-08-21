@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        .container{
+            width:980px;
+            height: 900px;
+            border : 1px solid black;
+            margin: auto;
+        }
+
+        .top{
+
+            width: 960px;
+            height:100px;
+            display: block;
+            border : 1px solid black;
+            vertical-align: top;
+            margin-left: -16px;
+        }
+        h2{
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .logout{
+            display: inline-block;
+            font-size: 20px;
+            margin-left: 520px;
+            margin-top: 20px;
+            vertical-align: top;
+        }
+
+        .box1{
+
+            width: 900px;
+            min-height: 300px;
+            margin : 20px auto;
+        }
+
+         .box2{
+
+            width: 900px;
+            min-height: 300px;
+            margin : 20px auto;
+        }
+
+        .add_trip{
+
+            text-align: right;
+
+        }
+
+        .table1{
+            border: 1px solid black;
+            width : 600px;
+            min-height: 200px;
+        }
+        tr{
+            border : 1px solid black;
+        }
+    </style>
+
+</head>
+<body>
+    <div class= "container">
+            <div class = "top">
+
+                    <h2>Welcome {{user.first_name}}</h2>
+
+                    <div class = "logout">
+                        <a href = "/logout">Logout</a>
+                    </div>
+            </div>
+
+            <div class= "box1">
+                <h3>Your Trip Schedules</h3>
+
+
+                    <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Travel Start Date  :</th>
+                                <th scope="col">Travel end Date  :</th>
+                                <th scope="col">Plan :</th>
+                                <th scope="col">Action :</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {%for trip in user_trips%}
+                              <tr>
+
+                                <td><a href = "/{{trip.id}}/show">{{trip.destination}}</a></td>
+                                <td>{{trip.start_date}}</td>
+                                <td>{{trip.end_date}}</td>
+                                <td>{{trip.description}}</td>
+                                <td><a href = "/{{trip.id}}/cancel">Cancel</a> {%if trip.uploader == user%} <a href = "/{{trip.id}}/delete">Delete</a> {%endif%}</td>
+                              </tr>
+                              <tr>
+                                  {%endfor%}
+
+                            </tbody>
+                          </table>
+
+                          <div class = "add_trip">
+
+                                <button><a href = "/add">Add Trip</a></button>
+
+                       </div>
+            </div>
+
+
+            <div class= "box2">
+                <h3>Other Users's Travel Plans</h3>
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Travel Start Date  :</th>
+                            <th scope="col">Travel end Date  :</th>
+
+                            <th scope="col">Action :</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {%for trip in other_trips%}
+                          <tr>
+
+                            <td><a href = "/{{trip.id}}/show">{{trip.destination}}</a></td>
+                            <td>{{trip.start_date}}</td>
+                            <td>{{trip.end_date}}</td>
+
+                            <td><a href = "/{{trip.id}}/join">Join</a></td>
+                          </tr>
+                          <tr>
+                              {%endfor%}
+
+                        </tbody>
+                </table>
+
+
+            </div>
+
+
+    </div>
+
+
+</body>
+</html>
